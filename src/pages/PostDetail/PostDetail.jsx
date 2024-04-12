@@ -52,7 +52,7 @@ const PostDetail = () => {
       </section>
       <section className="add-comment">
         <h2>Ajouter un commentaire</h2>
-        <Form formType={'comment'} />
+        <Form formType={'comment'} postId={id} />
       </section>
     </div>
   );
