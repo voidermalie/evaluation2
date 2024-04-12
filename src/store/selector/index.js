@@ -1,6 +1,5 @@
 // Post selectors
 export const selectPosts = (state) => state.posts.posts;
-export const selectPost = (state) => state.posts.post;
 
 export const selectPostTitle = (state) => state.posts.post.title;
 export const selectPostContent = (state) => state.posts.post.content;

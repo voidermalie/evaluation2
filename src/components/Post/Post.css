@@ -1,3 +1,5 @@
 .post-item {
     border: 1px solid pink;
+    list-style-type: none;
+    width: 500px;
 }

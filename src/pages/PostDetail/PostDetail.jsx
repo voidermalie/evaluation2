@@ -1,15 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 import Form from '../../components/Form/Form';
 import './PostDetail.css';
-import { selectComments } from '../../store/selector';
+import { selectComments, selectPosts } from '../../store/selector';
 import { useEffect } from 'react';
 import { fetchComments } from '../../store/slice/commentSlice';
 import { useParams } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
+import Post from '../../components/Post/Post';
 
 const PostDetail = () => {
   const dispatch = useDispatch();
+
   const comments = useSelector(selectComments);
+  const posts = useSelector(selectPosts);
+
   const { id } = useParams();
+  const post = posts.find((post) => post.id === parseInt(id));
+
+  const isPostLoading = !post || comments.length === 0;
 
   useEffect(() => {
     dispatch(fetchComments(id));
@@ -17,12 +25,14 @@ const PostDetail = () => {
 
   return (
     <div id="post-detail-container">
-      <section className="post-detail">
-        <h2>Publication</h2>
-        <h3>title</h3>
-        <p>author</p>
-        <p>content</p>
-      </section>
+      {isPostLoading ? (
+        <Loader />
+      ) : (
+        <section className="post-detail">
+          <h2>Publication</h2>
+          <Post post={post} isDetailPage={true} />
+        </section>
+      )}
       <section className="comment-container">
         <h2>Tous les commentaires</h2>
         {comments.length > 0 ? (
@@ -30,7 +40,9 @@ const PostDetail = () => {
             {comments.map((comment) => (
               <article key={comment.id} className="comment">
                 <li>{comment.body}</li>
-                <p>By <span className='comment-author-name'>{comment.name}</span></p>
+                <p>
+                  By <span className="comment-author-name">{comment.name}</span>
+                </p>
               </article>
             ))}
           </ul>
