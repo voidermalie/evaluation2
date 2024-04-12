@@ -1,0 +1,16 @@
+.comment-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.comment {
+    border: 1px solid pink;
+    padding: 16px 8px;
+}
+
+.comment-author-name {
+    font-style: italic;
+    opacity: 0.7;
+}
